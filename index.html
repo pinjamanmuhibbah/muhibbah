@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ms-MY">
+<head>
+    <link rel="icon" type="image/png" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Muhibbah Alliance Capital - Permohonan Pembiayaan Koperasi untuk Kakitangan Kerajaan Malaysia. Proses mudah, kadar faedah kompetitif.">
+    <meta name="keywords" content="pembiayaan koperasi, pinjaman kerajaan, kakitangan kerajaan malaysia, muhibbah alliance capital, pinjaman koperasi, loan malaysia">
+    <meta name="author" content="Muhibbah Alliance Capital">
+    <title>Muhibbah Alliance Capital - Pembiayaan Koperasi untuk Kakitangan Kerajaan Malaysia</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+.floating-back {
+  position: fixed;          /* always stays visible */
+  bottom: 20px;             /* distance from bottom */
+  right: 20px;              /* distance from right */
+  background: #1a4f8b;      /* button color */
+  color: #fff;              /* text color */
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 9999;            /* stays above other elements */
+}
+
+.floating-back:hover {
+  transform: scale(1.1);    /* little zoom on hover */
+  background: #163c66;      /* darker on hover */
+}
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    
+        :root {
+            --primary: #1a4f8b;
+            --secondary: #e67e22;
+            --accent: #2ecc71;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(26, 79, 139, 0.8), rgba(26, 79, 139, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%231a4f8b" width="100" height="100"/><path fill="%23227fbb" d="M0 0L100 100M100 0L0 100" stroke-width="0.5"/></svg>');
+            color: white;
+            padding: 0rem 0;
+            margin-bottom: 0;
+  margin-top: 100px; /* 👈 pushes hero below navbar */
+
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #0e3a6b;
+            border-color: #0e3a6b;
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d35400;
+            border-color: #d35400;
+            color: white;
+        }
+        
+        .feature-box {
+            padding: rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+            background: white;
+            height: 100%;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+        
+        .step-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            height: 100%;
+            border-top: 5px solid var(--primary);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+        
+        .application-form {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .display-4 {
+                font-size: 2.2rem;
+            }
+        }
+html {
+  scroll-padding-top: 120px; /* navbar height */
+}
+        /* Footer Styles */
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 3rem 0 1.5rem;
+            width: 100%;
+            border-radius: 8px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+        
+        .footer-col {
+            padding: 0 15px;
+        }
+        
+        .footer-col h5 {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-col h5:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: #0d6efd;
+        }
+        
+        .footer-col p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-col ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 0.25rem 0;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #0d6efd;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+            opacity: 0.8;
+            grid-column: 1 / -1;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: #0d6efd;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #0d6efd;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top:hover {
+            background: #0b5ed7;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+<a href="javascript:history.back()" class="floating-back">← Back</a>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="font-size: 1.3em;">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+              <div class="logo">
+                <img src="logo.png" alt="Muhibbah Alliance Capital Logo">
+              </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Tentang Kami</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#proses">Proses Permohonan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="semak.html">Semak Kelayakan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Hubungi Kami</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero">
+  <img src="main.png" alt="Koperasi4u Banner" style="width:80%; display:block; margin:auto;">
+    </div>
+
+
+    <!-- Features Section -->
+    <section class="container mb-5">
+        <br><h2 class="section-title">Mengapa Memilih Kami?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-percentage fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="text-center">Kadar Faedah Rendah</h3>
+                    <p class="text-center">Kadar faedah yang kompetitif dan berpatutan untuk kakitangan kerajaan.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-bolt fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="text-center">Proses Cepat</h3>
+                    <p class="text-center">Kelulusan dalam masa 3-5 hari bekerja dengan dokumentasi yang minimum.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <div class="text-center mb-3">
+                        <i class="fas fa-user-shield fa-3x text-primary"></i>
+                    </div>
+                    <h3 class="text-center">Selamat & Terjamin</h3>
+                    <p class="text-center">Data peribadi anda dilindungi dan proses mengikut garis panduan koperasi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="section-title text-start">Muhibbah Alliance Capital Sdn Bhd</h2>
+                    <p>Muhibbah Alliance Capital Sdn Bhd telah diperbadankan di Malaysia pada 28 December 2009, sebagai platform penyediaan perkhidmatan kewangan – Pinjaman Peribadi Kakitangan Kerajaan & GLC yang dipercayai khusus di seluruh Malaysia. <br><br>
+
+Kami bekerjasama rapat dengan pelbagai koperasi dan yayasan untuk menawarkan pembiayaan pembiayaan peribadi yang patuh Syariah dan konvensional. Pembayaran dilakukan melalui Skim Potongan Gaji, ansuran bulanan dipotong terus dari gaji peminjam bagi memastikan proses pembayaran yang lebih mudah dan teratur.<br><br>
+
+Komitmen kami adalah untuk menyediakan pengalaman pinjaman yang pantas, selamat, dan berpatutan. Dengan kadar keuntungan yang kompetitif dan tempoh kelulusan yang cepat, kami telah berjaya membantu lebih daripada 200,000 Penjawat Awam mendapatkan pembiayaan. Dan kepercayaan pelanggan terhadap perkhidmatan kami juga dibuktikan dengan penilaian 5 bintang di Google Review.<br><br>
+
+Di Muhibbah Alliance Capital Sdn Bhd, kami bukan sekadar penyedia pinjaman – kami adalah rakan kewangan anda dalam mencapai kestabilan dan kelangsungan hidup yang lebih baik.
+Muhibbah Alliance Capital merupakan syarikat pembiayaan koperasi yang berdedikasi untuk membantu kakitangan kerajaan Malaysia mendapatkan pembiayaan dengan proses yang mudah dan kadar faedah yang kompetitif.</p>
+                    <p>Dengan pengalaman lebih 10 tahun dalam industri, kami memahami keperluan kewangan kakitangan kerajaan dan berkomitmen untuk memberikan perkhidmatan yang terbaik.</p>
+
+                </div>
+                <div class="col-lg-6">
+                    <!--<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNTAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2Y4ZjlmYSIvPjxjaXJjbGUgY3g9IjI1MCIgY3k9IjE1MCIgcj0iODAiIGZpbGw9IiMxYTRmOGIiLz48cmVjdCB4PSIxNTAiIHk9IjI1MCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNlNjdlMjIiLz48dGV4dCB4PSIyNTAiIHk9IjE1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSI+TUFDPC90ZXh0Pjx0ZXh0IHg9IjI1MCIgeT0iMzAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IndoaXRlIj5NdWhpYmJhaCBBbGxpYW5jZSBDYXBpdGFsPC90ZXh0Pjwvc3ZnPg==" alt="About Muhibbah Alliance Capital" class="img-fluid rounded">-->
+<img src="logo.png" 
+     alt="Muhibbah Alliance Capital Logo" 
+     class="img-fluid mx-auto d-block" 
+     style="max-width: 250px; height: auto;">
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="proses" class="py-5">
+        <div class="container">
+            <!--<h2 class="section-title">Produk Pembiayaan Kami</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white text-center py-3">
+                            <h3>Pembiayaan Peribadi</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Jumlah pinjaman: RM5,000 - RM50,000</li>
+                                <li class="list-group-item">Tempoh bayaran balik: 1-5 tahun</li>
+                                <li class="list-group-item">Kadar faedah: 4.5% setahun</li>
+                                <li class="list-group-item">Tanpa cagaran</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#application" class="btn btn-primary">Mohon Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white text-center py-3">
+                            <h3>Pembiayaan Pendidikan</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Jumlah pinjaman: RM3,000 - RM30,000</li>
+                                <li class="list-group-item">Tempoh bayaran balik: 1-7 tahun</li>
+                                <li class="list-group-item">Kadar faedah: 3.9% setahun</li>
+                                <li class="list-group-item">Moratorium semasa pengajian</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#application" class="btn btn-primary">Mohon Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white text-center py-3">
+                            <h3>Pembiayaan Perumahan</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Jumlah pinjaman: RM10,000 - RM100,000</li>
+                                <li class="list-group-item">Tempoh bayaran balik: 5-15 tahun</li>
+                                <li class="list-group-item">Kadar faedah: 4.2% setahun</li>
+                                <li class="list-group-item">Dengan cagaran</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#application" class="btn btn-primary">Mohon Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <h2 class="section-title">Proses Permohonan</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="step-card text-center">
+                        <div class="mb-3">
+                            <span class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; font-size: 1.5rem;">1</span>
+                        </div>
+                        <h4>Isi Borang Permohonan</h4>
+                        <p>Isi borang dalam talian dengan maklumat peribadi dan butiran pinjaman.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card text-center">
+                        <div class="mb-3">
+                            <span class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; font-size: 1.5rem;">2</span>
+                        </div>
+                        <h4>Hantar Dokumen</h4>
+                        <p>Muat naik dokumen yang diperlukan seperti slip gaji dan kad pengenalan.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card text-center">
+                        <div class="mb-3">
+                            <span class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; font-size: 1.5rem;">3</span>
+                        </div>
+                        <h4>Kelulusan</h4>
+                        <p>Proses kelulusan dalam 3-5 hari bekerja setelah dokumen lengkap.</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-card text-center">
+                        <div class="mb-3">
+                            <span class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 60px; height: 60px; font-size: 1.5rem;">4</span>
+                        </div>
+                        <h4>Dana Dikreditkan</h4>
+                        <p>Jumlah pinjaman akan dikreditkan ke akaun bank anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Hero Content Below Image 
+    <section class="hero-content">-->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 mx-auto text-center">
+                    <br><br><h1 class="display-4 fw-bold">Pembiayaan Koperasi untuk Kakitangan Kerajaan Malaysia</h1>
+                    <p class="lead">Khidmat kami menyediakan pinjaman koperasi dengan kadar faedah yang kompetitif dan proses yang mudah untuk kakitangan kerajaan.</p>
+                    <div class="mt-4">
+                        <a href="semak.html" class="btn btn-secondary btn-lg me-2 mb-2">Semak Kelayakan</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+     </section>
+
+
+    <!-- Application Form --><!--
+    <section id="application" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Borang Permohonan Pembiayaan</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="application-form">
+                        <form>
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label">Nama Penuh</label>
+                                <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="icNumber" class="form-label">Nombor Kad Pengenalan</label>
+                                <input type="text" class="form-control" id="icNumber" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Nombor Telefon</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Alamat Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="department" class="form-label">Jabatan/Kementerian</label>
+                                <input type="text" class="form-control" id="department" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="position" class="form-label">Jawatan</label>
+                                <input type="text" class="form-control" id="position" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="salary" class="form-label">Gaji Bulanan (RM)</label>
+                                <input type="number" class="form-control" id="salary" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loanType" class="form-label">Jenis Pembiayaan</label>
+                                <select class="form-select" id="loanType" required>
+                                    <option value="">Sila Pilih</option>
+                                    <option value="personal">Pembiayaan Peribadi</option>
+                                    <option value="education">Pembiayaan Pendidikan</option>
+                                    <option value="housing">Pembiayaan Perumahan</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loanAmount" class="form-label">Jumlah Pembiayaan (RM)</label>
+                                <input type="number" class="form-control" id="loanAmount" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loanDuration" class="form-label">Tempoh Pembiayaan (Tahun)</label>
+                                <select class="form-select" id="loanDuration" required>
+                                    <option value="">Sila Pilih</option>
+                                    <option value="1">1 Tahun</option>
+                                    <option value="2">2 Tahun</option>
+                                    <option value="3">3 Tahun</option>
+                                    <option value="4">4 Tahun</option>
+                                    <option value="5">5 Tahun</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" required>
+                                <label class="form-check-label" for="terms">Saya mengakui bahawa maklumat yang diberikan adalah benar dan saya bersetuju dengan terma dan syarat.</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Hantar Permohonan</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>-->
+
+    <!-- FAQ Section -->
+    <section id="faq" class="bg-light py-5">
+        <div class="container">
+            <h2 class="section-title">Soalan Lazim (FAQ)</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="faq-item">
+                        <div class="faq-question">Siapakah yang layak memohon pembiayaan ini?</div>
+                        <div class="faq-answer">
+                            <p>Semua kakitangan kerajaan Malaysia yang berkhidmat secara tetap dan mempunyai perkhidmatan sekurang-kurangnya 2 tahun.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Berapakah kadar faedah untuk pembiayaan ini?</div>
+                        <div class="faq-answer">
+                            <p>Kadar faedah berbeza mengikut jenis pembiayaan, antara 3.9% hingga 4.5% setahun.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Berapa lamakah masa yang diperlukan untuk kelulusan?</div>
+                        <div class="faq-answer">
+                            <p>Biasanya dalam masa 3-5 hari bekerja setelah semua dokumen lengkap diterima.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Apakah dokumen yang diperlukan?</div>
+                        <div class="faq-answer">
+                            <p>Salinan kad pengenalan, slip gaji terkini, surat pengesahan perkhidmatan, dan penyata bank 3 bulan terkini.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Bolehkah saya membuat permohonan jika masih mempunyai pinjaman lain?</div>
+                        <div class="faq-answer">
+                            <p>Ya, selagi nisbah bayaran balik pinjaman tidak melebihi 60% daripada gaji anda.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h3>Maklumat Perhubungan</h3>
+                        <p><i class="fas fa-map-marker-alt me-2"></i> <strong>Alamat:</strong> 58-1, Jalan Tasik Utama 7, Medan Niaga Tasik Damai, Sungai Besi, 57000 Kuala Lumpur, Malaysia</p>
+                        <p><i class="fas fa-clock me-2"></i> <strong>Waktu Operasi:</strong> Isnin - Jumaat, 9:00 pagi - 6:00 petang</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <!--<h3>Hantar Mesej</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="contactName" class="form-label">Nama Anda</label>
+                                <input type="text" class="form-control" id="contactName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactEmail" class="form-label">Alamat Email</label>
+                                <input type="email" class="form-control" id="contactEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactMessage" class="form-label">Mesej</label>
+                                <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Hantar Mesej</button>
+                        </form>-->
+                        <h3><br></h3>
+                        <p><i class="fas fa-phone me-2"></i> <strong>Telefon:</strong> 603 9054 0101</p>
+                        <p><i class="fas fa-envelope me-2"></i> <strong>Email:</strong> contact@pinjamanmuhibbah.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <!-- Column 1: Company Info -->
+                <div class="footer-col">
+                    <h5>Muhibbah Alliance Capital</h5>
+                    <p>Pembiayaan koperasi yang mudah dan pantas untuk kakitangan kerajaan Malaysia.</p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col">
+                    <h5>Pautan Pantas</h5>
+                    <ul>
+                        <li><a href="#" class="text-decoration-none">Home</a></li>
+                        <li><a href="#about" class="text-decoration-none">Tentang Kami</a></li>
+                        <li><a href="#proses" class="text-decoration-none">Proses Permohonan</a></li>
+                        <li><a href="semak.html" class="text-decoration-none">Semak Kelayakan</a></li>
+                        <li><a href="#contact" class="text-decoration-none">Hubungi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Legal & FAQ-->
+                <div class="footer-col">
+                    <h5>Legal & FAQ</h5>
+                    <ul>
+                        <li><a href="privasi.html" class="text-decoration-none">Dasar Privasi</a></li>
+                        <li><a href="terms.html" class="text-decoration-none">Terma &amp; Syarat</a></li>
+                        <li><a href="#faq" class="text-decoration-none">FAQ</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Muhibbah Alliance Capital Sdn Bhd. Semua Hakcipta Terpelihara.</p>
+            </div>
+        </footer>
+    </div>
+
+    <a href="#" class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple FAQ toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+        
+        // Initially hide all FAQ answers
+        document.querySelectorAll('.faq-answer').forEach(answer => {
+            answer.style.display = 'none';
+        });
+        // Back to top button functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
