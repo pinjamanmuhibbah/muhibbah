@@ -547,10 +547,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Jawatan / Gred</label>
+                            <label>Jabatan/Agensi/Kementerian</label>
                             <div class="input-container">
                                 <i class="fas fa-briefcase"></i>
-                                <input type="text" name="jawatan" placeholder="Contoh: Guru DG41">
+                                <input type="text" name="jawatan" placeholder="Jabatan/Agensi/Kementerian">
                             </div>
                         </div>
                     </div>
@@ -648,7 +648,7 @@
                     }
                     
                     // Send to Google Sheets
-                    const response = await fetch('https://script.google.com/macros/s/AKfycbwl5lfNi4DuIJusjhZ8mOUqN4bdVpcU5R1-v0n5OaQRd2yfp-Y_51Ee8HhtbNtDQCWZ/exec', {
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbyXyMU6vcPKHzfQwET3V9UBuiDF756Bq6qRjZE-HAqnmmimWjnSZciSUQ8_OvMjtHfM7w/exec', {
                         method: 'POST',
                         body: formData,
                         redirect: 'follow'
