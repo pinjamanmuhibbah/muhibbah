@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <link rel="icon" type="image/png" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semak Kelayakan Pinjaman Koperasi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --primary-dark: #0b5ed7;
+            --secondary: #6c757d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #198754;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --info: #0dcaf0;
+            --border-radius: 4px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            margin: 0;
+            padding: 10px;
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            height: 90vh;
+            max-height: 1400px;
+            margin: 30px 0; /* Added margin for top and bottom spacing */
+        }
+        
+        @media (max-width: 1000px) {
+            .container {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+        
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 100px;
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-bottom: 5px solid var(--primary-dark);
+            flex-wrap: wrap;
+            text-align: center;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            grid-column: 1 / -1;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .logo img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        
+        .header-text h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .header-text p {
+            margin: 8px 0 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: white;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .content-section {
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light);
+            text-align: center;
+            font-size: 1.4rem;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        .input-container {
+            position: relative;
+        }
+        
+        .input-container i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+        
+        .input-container input, .input-container select {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 4px;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            padding: 14px;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+        
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        button.success {
+            background: var(--success);
+        }
+        
+        button.success:hover {
+            background: #146c43;
+        }
+        
+        button:disabled {
+            background: var(--secondary);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result {
+            background: #e9f7ef;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: var(--border-radius);
+            border-left: 5px solid var(--success);
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .result h3 {
+            margin-top: 0;
+            color: var(--success);
+            font-size: 1.1rem;
+        }
+        
+        .result-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .result-item {
+            background: white;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .result-item h4 {
+            margin: 0 0 8px;
+            color: var(--secondary);
+            font-size: 0.8rem;
+        }
+        
+        .result-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .consent-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            background: var(--light);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        .consent-container input {
+            width: auto;
+            margin-top: 4px;
+            transform: scale(1.1);
+        }
+        
+        .consent-container label {
+            font-weight: normal;
+            margin-bottom: 0;
+            font-size: 0.85rem;
+        }
+        
+        .message {
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: var(--border-radius);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            color: #155724;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            border-left: 4px solid var(--danger);
+            color: #721c24;
+        }
+        
+        .message.warning {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            color: #856404;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: var(--secondary);
+            grid-column: 1 / -1;
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-grid, .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .header {
+                padding: 15px 10px;
+            }
+            
+            .content-section {
+                padding: 15px;
+            }
+            
+            .result-details {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Custom scrollbar for content sections */
+        .content-section::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .content-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .content-section::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        
+        .content-section::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        .submission-info {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-align: center;
+            margin-top: 10px;
+            display: none;
+        }
+.floating-back {
+  position: fixed;          /* always stays visible */
+  bottom: 20px;             /* distance from bottom */
+  right: 20px;              /* distance from right */
+  background: #1a4f8b;      /* button color */
+  color: #fff;              /* text color */
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 9999;            /* stays above other elements */
+}
+
+.floating-back:hover {
+  transform: scale(1.1);    /* little zoom on hover */
+  background: #163c66;      /* darker on hover */
+}
+
+    </style>
+</head>
+<body id="#">
+<a href="javascript:history.back()" class="floating-back">← Back</a>
+    <div class="container">
+        <header class="header">
+<a href="#">
+    <div class="logo">
+        <img src="logo.png" alt="Muhibbah Alliance Capital Logo">
+    </div>
+</a>
+            <div class="header-text">
+                <h1>Muhibbah Alliance Capital Sdn Bhd</h1>
+                <p>Pembiayaan Koperasi Khas untuk Penjawat Awam <br> Ketahui jumlah kelayakan & bayaran bulanan anda</p>
+            </div>
+        </header>
+
+        <div class="card">
+            <div class="content-section">
+                <h2>Kalkulator Kelayakan</h2>
+                <div class="calculator-grid">
+                    <div class="form-group">
+                        <label for="gaji">Gaji Pokok (RM)</label>
+                        <div class="input-container">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <input type="number" id="gaji" placeholder="Contoh: 3000" min="1000" step="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tempoh">Tempoh Pinjaman (tahun)</label>
+                        <div class="input-container">
+                            <i class="fas fa-calendar-alt"></i>
+                            <select id="tempoh">
+                                <option value="5">5 Tahun</option>
+                                <option value="10" selected>10 Tahun</option>
+                                <option value="15">15 Tahun</option>
+                                <option value="20">20 Tahun</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="kiraPinjaman()">Kira Kelayakan</button>
+                
+                <div class="result" id="hasil">
+                    <h3>Keputusan Kelayakan Pinjaman</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px;">Berdasarkan maklumat yang anda berikan:</p>
+                    <div class="result-details">
+                        <div class="result-item">
+                            <h4>Jumlah Pinjaman Layak</h4>
+                            <div class="result-value" id="kelayakan">RM 0</div>
+                        </div>
+                        <div class="result-item">
+                            <h4>Ansuran Bulanan</h4>
+                            <div class="result-value" id="ansuran">RM 0</div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px; font-style: italic; font-size: 0.8rem;">* Ini adalah anggaran sahaja. Kadar sebenar mungkin berbeza berdasarkan penilaian kredit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="content-section">
+                <h2>Dapatkan Panduan & Kadar Terbaik</h2>
+                
+                <!-- Loading indicator -->
+                <div class="message" id="loading">
+                    <div class="loading"></div> Memproses permohonan anda...
+                </div>
+                
+                <!-- Success message -->
+                <div class="message success" id="success">
+                    <div>
+                        <strong>Permohonan berjaya dihantar!</strong><br>
+                        Terima kasih atas permohonan anda.
+                    </div>
+                </div>
+                
+                <!-- Error message -->
+                <div class="message error" id="error">
+                    <div>
+                        <strong>Ralat semasa penghantaran.</strong><br>
+                        Sila cuba semula.
+                    </div>
+                </div>
+                
+                <!-- Duplicate submission message -->
+                <div class="message warning" id="duplicateWarning">
+                    <div>
+                        <strong>Permohonan sudah dihantar.</strong><br>
+                        Anda telah menghantar permohonan sebelum ini.
+                    </div>
+                </div>
+                
+                <form id="loanForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nama Penuh <span style="color: var(--danger)">*</span></label>
+                            <div class="input-container">
+                                <i class="fas fa-user"></i>
+                                <input type="text" name="nama" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>No. Telefon <span style="color: var(--danger)">*</span></label>
+                            <div class="input-container">
+                                <i class="fas fa-phone"></i>
+                                <input type="text" name="telefon" placeholder="Contoh: 0123456789">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Nombor Kad Pengenalan <span style="color: var(--danger)">*</span></label>
+                            <div class="input-container">
+                                <i class="fas fa-id-card"></i>
+                                <input type="text" name="ic" placeholder="Contoh: 900101086599" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Jabatan/Agensi/kementerian</label>
+                            <div class="input-container">
+                                <i class="fas fa-briefcase"></i>
+                                <input type="text" name="jabatan" placeholder="Contoh: KKM/KPM/JKR">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email <span style="color: var(--danger)">*</span></label>
+                        <div class="input-container">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" name="email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="consent-container">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">
+                            Saya bersetuju menerima maklumat dan promosi berkaitan pinjaman koperasi daripada Muhibbah Alliance Capital Sdn Bhd. 
+                            Saya faham bahawa saya boleh berhenti melanggan pada bila-bila masa.
+                        </label>
+                    </div>
+                    <button type="submit" class="success" id="submitButton">
+                        Semak Kelayakan Saya
+                    </button>
+                    
+                    <div class="submission-info" id="submissionInfo">
+                        <i class="fas fa-info-circle"></i> Permohonan telah dihantar pada: <span id="submissionTime"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 Muhibbah Alliance Capital Sdn Bhd. Semua Hakcipta Terpelihara.</p>
+            <p><a href="privasi.html">Polisi Privasi</a></p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loanForm');
+            const loading = document.getElementById('loading');
+            const success = document.getElementById('success');
+            const error = document.getElementById('error');
+            const duplicateWarning = document.getElementById('duplicateWarning');
+            const submissionInfo = document.getElementById('submissionInfo');
+            const submissionTime = document.getElementById('submissionTime');
+            const submitButton = document.getElementById('submitButton');
+            
+            // Check if already submitted
+            checkIfAlreadySubmitted();
+            
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Hide all messages
+                success.style.display = 'none';
+                error.style.display = 'none';
+                duplicateWarning.style.display = 'none';
+                
+                // Check if already submitted in this session
+                if (localStorage.getItem('formSubmitted') === 'true') {
+                    duplicateWarning.style.display = 'flex';
+                    duplicateWarning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                
+                // Show loading
+                loading.style.display = 'flex';
+                submitButton.disabled = true;
+                
+                try {
+                    // Prepare form data
+                    const formData = new FormData(form);
+                    
+                    // Add timestamp
+                    const now = new Date();
+                    formData.append('timestamp', now.toISOString());
+                    
+                    // Add calculated values if available
+                    const kelayakan = document.getElementById('kelayakan').textContent;
+                    const ansuran = document.getElementById('ansuran').textContent;
+                    
+                    if (kelayakan !== 'RM 0') {
+                        formData.append('jumlah_pinjaman', kelayakan);
+                        formData.append('ansuran_bulanan', ansuran);
+                    }
+                    
+                    // Generate a unique submission ID
+                    const submissionId = generateSubmissionId(formData);
+                    
+                    // Check if this specific form data was already submitted
+                    if (localStorage.getItem(submissionId)) {
+                        duplicateWarning.style.display = 'flex';
+                        duplicateWarning.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        return;
+                    }
+                    
+                    // Send to Google Sheets
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbyXyMU6vcPKHzfQwET3V9UBuiDF756Bq6qRjZE-HAqnmmimWjnSZciSUQ8_OvMjtHfM7w/exec', {
+                        method: 'POST',
+                        body: formData,
+                        redirect: 'follow'
+                    });
+                    
+                    // Check if response is OK
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    // Get response text
+                    const result = await response.text();
+                    
+                    // Check for success
+                    if (result.toLowerCase().includes('success') || result.toLowerCase().includes('berjaya')) {
+                        success.style.display = 'flex';
+                        
+                        // Mark as submitted
+                        localStorage.setItem('formSubmitted', 'true');
+                        localStorage.setItem(submissionId, 'true');
+                        localStorage.setItem('submissionTime', now.toLocaleString('ms-MY'));
+                        
+                        // Update submission info
+                        submissionTime.textContent = now.toLocaleString('ms-MY');
+                        submissionInfo.style.display = 'block';
+                        
+                        form.reset();
+                        document.getElementById('hasil').classList.remove('show');
+                    } else {
+                        throw new Error('Server returned an error: ' + result);
+                    }
+                } catch (err) {
+                    console.error('Form submission error:', err);
+                    error.querySelector('div').innerHTML = `
+                        <strong>Ralat semasa penghantaran.</strong><br>
+                        ${err.message || 'Sila cuba semula.'}
+                    `;
+                    error.style.display = 'flex';
+                } finally {
+                    // Hide loading
+                    loading.style.display = 'none';
+                    submitButton.disabled = false;
+                    
+                    // Scroll to message
+                    const message = success.style.display === 'flex' ? success : 
+                                  error.style.display === 'flex' ? error : 
+                                  duplicateWarning;
+                    if (message.style.display === 'flex') {
+                        message.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            });
+            
+            // Input validation for IC number
+            const icInput = form.querySelector('input[name="ic"]');
+            icInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').substring(0, 12);
+            });
+            
+            // Input validation for phone number
+            const phoneInput = form.querySelector('input[name="telefon"]');
+            phoneInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '').substring(0, 11);
+            });
+            
+            // Check if form was already submitted
+            function checkIfAlreadySubmitted() {
+                if (localStorage.getItem('formSubmitted') === 'true') {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Permohonan Telah Dihantar';
+                    
+                    const time = localStorage.getItem('submissionTime');
+                    if (time) {
+                        submissionTime.textContent = time;
+                        submissionInfo.style.display = 'block';
+                    }
+                }
+            }
+            
+            // Generate a unique ID based on form data to detect duplicates
+            function generateSubmissionId(formData) {
+                let id = '';
+                for (const [key, value] of formData.entries()) {
+                    if (key !== 'timestamp') {
+                        id += `${key}:${value};`;
+                    }
+                }
+                // Simple hash function
+                let hash = 0;
+                for (let i = 0; i < id.length; i++) {
+                    const char = id.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash; // Convert to 32bit integer
+                }
+                return `form_submission_${hash}`;
+            }
+        });
+
+        function kiraPinjaman() {
+            let gaji = parseFloat(document.getElementById('gaji').value);
+            let tempoh = parseInt(document.getElementById('tempoh').value);
+            
+            if (!gaji || gaji <= 0) {
+                alert("Sila masukkan gaji yang sah.");
+                return;
+            }
+            
+            // More realistic calculation with interest
+            let kadarBulanan = 0.005; // 0.5% monthly interest (6% annually)
+            let n = tempoh * 12; // number of payments
+            let dsr = gaji * 0.6; // 60% Debt Service Ratio
+            
+            // Calculate loan amount based on DSR and annuity formula
+            let kelayakan = dsr * ((Math.pow(1 + kadarBulanan, n) - 1) / (kadarBulanan * Math.pow(1 + kadarBulanan, n)));
+            let ansuran = kelayakan * (kadarBulanan * Math.pow(1 + kadarBulanan, n)) / (Math.pow(1 + kadarBulanan, n) - 1);
+            
+            // Format numbers with thousand separators
+            let formattedKelayakan = kelayakan.toLocaleString('ms-MY', {maximumFractionDigits: 0});
+            let formattedAnsuran = ansuran.toLocaleString('ms-MY', {maximumFractionDigits: 2});
+            
+            // Update results
+            document.getElementById('kelayakan').textContent = 'RM ' + formattedKelayakan;
+            document.getElementById('ansuran').textContent = 'RM ' + formattedAnsuran;
+            
+            // Show result section
+            document.getElementById('hasil').classList.add('show');
+        }
+    </script>
+</body>
+</html>
