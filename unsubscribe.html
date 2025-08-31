@@ -50,6 +50,11 @@
             box-shadow: 0 6px 20px rgba(0, 201, 167, 0.3);
         }
         
+        .error-icon {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff9a3d 100%);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+        }
+        
         h1 {
             color: #2c3e50;
             font-size: 32px;
@@ -77,6 +82,10 @@
             width: 5px;
             height: 100%;
             background: linear-gradient(to bottom, #00c9a7, #4facfe);
+        }
+        
+        .error-box::before {
+            background: linear-gradient(to bottom, #ff6b6b, #ff9a3d);
         }
         
         .confirmation-text {
@@ -117,7 +126,6 @@
         }
         
         .processing {
-            display: none;
             margin: 40px 0;
         }
         
@@ -151,6 +159,34 @@
         .security-note i {
             margin-right: 8px;
             color: #e74c3c;
+        }
+        
+        .error-message {
+            display: none;
+            background: #fef6f6;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            color: #e74c3c;
+            border: 1px solid #fce4e4;
+        }
+        
+        .retry-button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4facfe 0%, #00c9a7 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+        
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
         }
         
         @keyframes fadeIn {
@@ -215,7 +251,7 @@
             <p class="processing-text">Memproses permintaan anda...</p>
         </div>
         
-        <div id="confirmation">
+        <div id="confirmation" style="display: none;">
             <div class="success-icon">
                 <i class="fas fa-check"></i>
             </div>
@@ -231,74 +267,109 @@
             <div class="footer">
                 <p>Anda tidak akan menerima sebarang e-mel pemasaran daripada kami lagi.</p>
                 <p>Terima kasih kerana pernah menjadi sebahagian daripada komuniti kami.</p>
-                <span class="brand">pinjamanmuhibbah.com</span>
+                <span class="brand">Koperasi4U.Cloud</span>
             </div>
             
             <div class="security-note">
                 <i class="fas fa-lock"></i> Proses berhenti langgan ini adalah selamat dan dihormati.
             </div>
         </div>
+        
+        <div id="error" style="display: none;">
+            <div class="success-icon error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            
+            <h1>Ralat Berlakunya</h1>
+            
+            <div class="confirmation-box error-box">
+                <p class="confirmation-text">Maaf, terdapat masalah teknikal</p>
+                <div class="email-highlight" id="errorEmail"></div>
+                <p class="confirmation-text">tidak dapat diproses buat masa ini.</p>
+            </div>
+            
+            <div class="error-message" id="errorDetail">
+                Sila cuba lagi atau hubungi sokongan teknikal.
+            </div>
+            
+            <button class="retry-button" onclick="retryUnsubscribe()">Cuba Sekali Lagi</button>
+            
+            <div class="footer">
+                <span class="brand">Koperasi4U.Cloud</span>
+            </div>
+        </div>
     </div>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // Google Apps Script URL - REPLACE WITH YOUR ACTUAL SCRIPT URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwlUgpSQhqEiNtMgs9v7MZTxOGY2Et8md2gp4Asa1bZvWcL5OD4xjG15awBCi5eQkE/exec';
+        let userEmail = '';
+        
+        function retryUnsubscribe() {
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('processing').style.display = 'block';
+            processUnsubscribe();
+        }
+        
+        function processUnsubscribe() {
             // Get URL parameters
             const urlParams = new URLSearchParams(window.location.search);
-            const email = urlParams.get('email') || '';
-            
-            // Show processing indicator initially
-            document.getElementById('confirmation').style.display = 'none';
-            document.getElementById('processing').style.display = 'block';
+            userEmail = urlParams.get('email') || '';
             
             // Set user email if available
-            if (email) {
-                document.getElementById('userEmail').textContent = email;
+            if (userEmail) {
+                document.getElementById('userEmail').textContent = userEmail;
+                document.getElementById('errorEmail').textContent = userEmail;
+            } else {
+                // No email provided, show error
+                showError('Tiada alamat e-mel ditemui dalam URL');
+                return;
             }
             
-            // Google Apps Script URL - REPLACE WITH YOUR ACTUAL SCRIPT URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxskzQvp1cmoP3wl6bYZus-mBwAwkbXw0wuaT8SXdHvOCxiAza709JUUGcj0n8b22O-/exec';
-            
             // Send request to Google Sheets to unsubscribe
-            if (email) {
-                fetch(`${scriptURL}?email=${encodeURIComponent(email)}`, {
-                    method: 'POST'
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    }
-                    throw new Error('Network response was not ok.');
-                })
-                .then(data => {
+            const formData = new FormData();
+            formData.append('email', userEmail);
+            formData.append('timestamp', new Date().toISOString());
+            formData.append('action', 'unsubscribe');
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json ? response.json() : response.text();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Check if the response indicates success
+                if (data && (data.result === 'success' || data.status === 'success')) {
                     // Hide processing and show confirmation
                     document.getElementById('processing').style.display = 'none';
                     document.getElementById('confirmation').style.display = 'block';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Still show confirmation even if logging fails
-                    document.getElementById('processing').style.display = 'none';
-                    document.getElementById('confirmation').style.display = 'block';
-                });
-            } else {
-                // No email provided, still show confirmation
-                setTimeout(() => {
-                    document.getElementById('processing').style.display = 'none';
-                    document.getElementById('confirmation').style.display = 'block';
-                }, 1500);
+                } else {
+                    throw new Error(data && data.message ? data.message : 'Invalid response from server');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError(error.message || 'Ralat rangkaian berlaku. Sila pastikan anda mempunyai sambungan internet.');
+            });
+        }
+        
+        function showError(message) {
+            document.getElementById('processing').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            if (message) {
+                document.getElementById('errorDetail').textContent = message;
+                document.getElementById('errorDetail').style.display = 'block';
             }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            processUnsubscribe();
         });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
