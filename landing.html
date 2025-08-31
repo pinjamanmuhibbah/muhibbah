@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<link rel="icon" type="image/png" href="logo.png">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pinjaman Koperasi Penjawat Awam | Muhibbah Alliance Capital</title>
+  <meta name="description" content="Semak kelayakan pinjaman koperasi khas untuk penjawat awam. Proses pantas, kadar tetap, potongan gaji ANGKASA. Isi borang ringkas & dapatkan semakan percuma.">
+  <meta property="og:title" content="Pinjaman Koperasi Penjawat Awam" />
+  <meta property="og:description" content="Semak kelayakan anda sekarang. Proses pantas, kadar rendah, tanpa penjamin." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pinjamanmuhibbah.com/" />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--primary:#0ea5e9;--dark:#0b1220;--muted:#6b7280;--bg:#f8fafc;--ring:rgba(14,165,233,.35)}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:#0f172a;background:var(--bg)}
+    a{color:var(--primary);text-decoration:none}
+    .container{max-width:1080px;margin:0 auto;padding:20px}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;padding:40px 20px}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#e0f2fe;color:#0369a1;font-weight:600;font-size:12px}
+    h1{font-size:38px;line-height:1.15;margin:14px 0}
+    p.lead{font-size:18px;color:#334155;margin:0 0 18px}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 8px 24px rgba(2,6,23,.06)}
+    .form-card{padding:22px}
+    .stack{display:grid;gap:14px}
+    label{font-weight:600;font-size:13px;color:#0b1220}
+    .input{width:100%;padding:12px 14px;border:1px solid #d1d5db;border-radius:12px;background:#fff;font-size:15px;outline:none;transition:.15s}
+    .input:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
+    .row{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+    .btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-outline{background:#fff;border:1px solid #cbd5e1;color:#0b1220}
+    .btn-disabled{background:#94a3b8;color:#f8fafc;cursor:not-allowed}
+    .muted{color:var(--muted);font-size:13px}
+    .mini{font-size:12px}
+    .pill{padding:6px 10px;border-radius:999px;background:#f1f5f9;color:#0f172a;font-weight:600;display:inline-block}
+    .checks{display:grid;gap:10px;margin:16px 0}
+    .checks div{display:flex;gap:10px;align-items:flex-start;color:#0f172a}
+    .checks svg{flex-shrink:0}
+    .section{padding:8px 20px 28px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .faq{display:grid;gap:10px}
+    .faq details{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px}
+    .faq summary{cursor:pointer;font-weight:700}
+    footer{padding:28px 20px;color:#475569}
+    .brand{font-weight:800;letter-spacing:.2px}
+    .logo{display:flex;align-items:center;gap:10px}
+    .logo svg{width:28px;height:28px}
+    .header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
+    .header .cta{display:flex;gap:10px}
+    .hide{display:none}
+    .loading {display: none; text-align: center; padding: 20px;}
+    .loading-spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .alert {
+      padding: 15px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    .alert-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    .alert-warning {
+      background-color: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+    }
+    .submission-timer {
+      background-color: #e0f2fe;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 15px;
+      display: none;
+    }
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+    }
+    /* Additional style for input type tel */
+    .input-tel {
+      font-family: monospace;
+    }
+.floating-back {
+  position: fixed;          /* always stays visible */
+  bottom: 20px;             /* distance from bottom */
+  right: 20px;              /* distance from right */
+  background: #1a4f8b;      /* button color */
+  color: #fff;              /* text color */
+  padding: 12px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 9999;            /* stays above other elements */
+}
+
+.floating-back:hover {
+  transform: scale(1.1);    /* little zoom on hover */
+  background: #163c66;      /* darker on hover */
+}
+  </style>
+</head>
+<body>
+<a href="https://pinjamanmuhibbah.com" class="floating-back">← Back to main</a>
+  <header class="header container">
+    <div class="logo">
+      <a class="navbar-brand" href="#">
+        <img src="logo.png" alt="Company Logo" height="100">
+      </a>
+      <span class="brand"><h2>Muhibbah Alliance Capital</h2></span>
+    </div>
+    <div class="cta">
+      <a class="btn btn-primary" id="btnWhatsTop" href="#apply">Semak Kelayakan</a>
+    </div>
+  </header>
+
+  <section class="hero container">
+    <div>
+      <span class="badge">Khas untuk Penjawat Awam • ANGKASA</span>
+      <h1>Pinjaman Koperasi <span style="color:var(--primary)">Mudah & Pantas</span></h1>
+      <p class="lead">Tawaran pinjaman koperasi untuk penjawat awam dengan kadar kompetitif, tanpa penjamin & potongan gaji melalui ANGKASA. Semak kelayakan anda secara PERCUMA.</p>
+
+      <div class="checks">
+        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#10b981" stroke-width="2" stroke-linecap="round"/></svg>Proses pantas (seawal 48 jam*)</div>
+        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#10b981" stroke-width="2" stroke-linecap="round"/></svg>Tanpa penjamin, kadar tetap</div>
+        <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="#10b981" stroke-width="2" stroke-linecap="round"/></svg>Potongan gaji melalui ANGKASA</div>
+      </div>
+
+      <div class="pill mini">*Tertakluk pada kelulusan & dokumen lengkap</div>
+    </div>
+
+    <div class="card form-card" id="apply">
+      <h2 style="margin:0 0 8px">Semak Kelayakan Percuma</h2>
+      <p class="muted" style="margin-top:0">Isi borang ringkas di bawah. Kami akan hubungi anda segera.</p>
+      
+      <!-- Alert Messages -->
+      <div id="success" class="alert alert-success">
+        <strong>Terima kasih!</strong> Permohonan anda telah dihantar. Kami akan hubungi anda tidak lama lagi.
+      </div>
+      <div id="error" class="alert alert-error">
+        <div><strong>Ralat!</strong> Sila cuba semula atau hubungi kami melalui WhatsApp.</div>
+      </div>
+      <div id="duplicateWarning" class="alert alert-warning">
+        <strong>Perhatian!</strong> Anda telah menghantar permohonan. Sila tunggu sebentar sebelum cuba lagi.
+      </div>
+      <div id="loading" class="loading">
+        <div class="loading-spinner"></div>
+        <p>Menghantar data...</p>
+      </div>
+      
+      <form id="leadForm" class="stack" autocomplete="on">
+       <input type="hidden" name="honeypot" value="">
+       <input type="hidden" name="source" value="campaign1">
+       <div class="row">
+          <div>
+            <label for="nama">Nama Penuh*</label>
+            <input class="input" id="nama" name="nama" required placeholder="Contoh: Ali bin Ahmad" />
+          </div>
+        <div>
+          <label for="ic">No. IC*</label>
+          <input class="input input-tel" id="ic" name="ic" type="tel" placeholder="Contoh: 900101086599" 
+                 pattern="[0-9]{12}" title="Masukkan nombor IC 12 digit tanpa sempang" required 
+                 oninput="formatIC(this)" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label for="telefon">No. Telefon / WhatsApp*</label>
+          <input class="input input-tel" id="telefon" name="telefon" type="tel" required 
+                 placeholder="Contoh: 0123456789" pattern="01[0-9]{8,9}" 
+                 title="Masukkan nombor telefon bimbit yang sah" 
+                 oninput="formatPhone(this)" />
+          </div>
+          <div>
+            <label for="email">Emel*</label>
+            <input class="input" id="email" name="email" placeholder="email@contoh.com" required />
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="jabatan">Jabatan/Agensi/Kementerian</label>
+            <input class="input" id="agency" name="jabatan" placeholder="Contoh: KKM / KPM / JKR" />
+          </div>
+        </div>
+        <div>
+          <label for="nota">Catatan (optional)</label>
+          <textarea class="input" id="nota" name="nota" rows="3" placeholder="Contoh: Tempoh & amaun diingini"></textarea>
+        </div>
+        <div>
+          <label class="muted"><input id="consent" type="checkbox" required /> Saya bersetuju dihubungi & memahami data saya diproses mengikut PDPA.</label>
+        </div>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Hantar & Semak</button>
+        <button class="btn btn-outline" type="button" id="whatsBtn">Teruskan di WhatsApp</button>
+        
+        <div id="submissionTimer" class="submission-timer">
+          <p class="muted">Anda boleh menghantar semula dalam: <span id="countdown">30</span> saat</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="grid-3">
+      <div class="card" style="padding:16px">
+        <h3>Dokumen Ringkas</h3>
+        <p class="muted">Slip gaji 3 bulan, salinan IC, penyata bank & penyata potongan (jika perlu).</p>
+      </div>
+      <div class="card" style="padding:16px">
+        <h3>Kadar Kompetitif</h3>
+        <p class="muted">Pilihan kadar tetap yang telus tanpa caj tersembunyi.</p>
+      </div>
+      <div class="card" style="padding:16px">
+        <h3>Urusan Selamat</h3>
+        <p class="muted">Pemotongan gaji melalui ANGKASA, proses patuh garis panduan.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Soalan Lazim (FAQ)</h2>
+    <div class="faq">
+      <details>
+        <summary>Siapa yang layak memohon?</summary>
+        <p>Penjawat awam tetap/kontrak (mengikut koperasi), umur 21–58 tahun, potongan gaji < 60%.</p>
+      </details>
+      <details>
+        <summary>Berapa lama proses kelulusan?</summary>
+        <p>Sebagai panduan, 48–72 jam selepas dokumen lengkap diterima. Tertakluk pada semakan koperasi.</p>
+      </details>
+      <details>
+        <summary>Adakah perlukan penjamin?</summary>
+        <p>Tidak, kebanyakan produk koperasi tidak memerlukan penjamin.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>
+        <div class="brand">Muhibbah Alliance Capital Sdn Bhd</div>
+        <div class="mini muted">Hak Cipta © <span id="year"></span> • Semua Hak Terpelihara</div>
+      </div>
+      <div class="mini muted">PDPA: Data digunakan hanya untuk tujuan semakan & dihubungi semula.</div>
+    </div>
+  </footer>
+
+    <script>
+    // Konfigurasi
+    const WHATSAPP_NUMBER = '60390540707';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx9zCTUzjbc7GHN6V-XtBZw7TC8FlUMpaBdjGJtqSsDF7hoxQvnUo0xMWpR5P5E_KDz/exec';
+    const SUBMISSION_COOLDOWN = 30;
+
+    // Fungsi untuk memformat input IC
+    function formatIC(input) {
+      // Hanya izinkan angka, hapus karakter non-digit
+      let value = input.value.replace(/\D/g, '');
+      
+      // Batasi hingga 12 digit
+      if (value.length > 12) {
+        value = value.substring(0, 12);
+      }
+      
+      // Perbarui nilai input
+      input.value = value;
+    }
+    
+    // Fungsi untuk memformat input telefon
+    function formatPhone(input) {
+      // Hanya izinkan angka, hapus karakter non-digit
+      let value = input.value.replace(/\D/g, '');
+      
+      // Jika dimulai dengan 01, batasi hingga 10-11 digit
+      if (value.startsWith('01')) {
+        if (value.length > 10 && value.length <= 11) {
+          // Biarkan seperti itu (10 atau 11 digit)
+        } else if (value.length > 11) {
+          value = value.substring(0, 11);
+        }
+      }
+      
+      // Perbarui nilai input
+      input.value = value;
+    }
+    
+    // Elemen DOM
+    const form = document.getElementById('leadForm');
+    const loading = document.getElementById('loading');
+    const success = document.getElementById('success');
+    const error = document.getElementById('error');
+    const duplicateWarning = document.getElementById('duplicateWarning');
+    const submitBtn = document.getElementById('submitBtn');
+    const whatsBtn = document.getElementById('whatsBtn');
+    const submissionTimer = document.getElementById('submissionTimer');
+    const countdownElement = document.getElementById('countdown');
+    
+    // Status penghantaran
+    let isSubmitting = false;
+    let countdownInterval = null;
+    
+    // Fungsi untuk menyimpan status penghantaran ke localStorage
+    function setSubmissionLock() {
+      const lockData = {
+        timestamp: Date.now(),
+        cooldown: SUBMISSION_COOLDOWN * 1000
+      };
+      localStorage.setItem('formSubmissionLock', JSON.stringify(lockData));
+    }
+    
+    // Fungsi untuk memeriksa status penghantaran
+    function checkSubmissionLock() {
+      const lockData = localStorage.getItem('formSubmissionLock');
+      if (!lockData) return false;
+      
+      const { timestamp, cooldown } = JSON.parse(lockData);
+      const elapsedTime = Date.now() - timestamp;
+      
+      return elapsedTime < cooldown;
+    }
+    
+    // Fungsi untuk memulakan countdown
+    function startCountdown(seconds) {
+      let remaining = seconds;
+      
+      submissionTimer.style.display = 'block';
+      countdownElement.textContent = remaining;
+      
+      if (countdownInterval) clearInterval(countdownInterval);
+      
+      countdownInterval = setInterval(() => {
+        remaining--;
+        countdownElement.textContent = remaining;
+        
+        if (remaining <= 0) {
+          clearInterval(countdownInterval);
+          submissionTimer.style.display = 'none';
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('btn-disabled');
+        }
+      }, 1000);
+    }
+    
+    // Fungsi untuk membina mesej WhatsApp
+    function buildMessage() {
+      const nama = document.getElementById('nama').value;
+      const ic = document.getElementById('ic').value;
+      const telefon = document.getElementById('telefon').value;
+      const email = document.getElementById('email').value;
+      const jabatan = document.getElementById('jabatan').value;
+      const nota = document.getElementById('nota').value;
+      
+      return `Assalamualaikum/Salam sejahtera,
+
+Saya ${nama} (IC: ${ic}) berminat untuk membuat semakan kelayakan pinjaman koperasi.
+
+Butiran saya:
+- Nama: ${nama}
+- No. IC: ${ic}
+- No. Telefon: ${telefon}
+- Emel: ${email}
+- Jabatan/Agensi: ${jabatan}
+${nota ? `- Catatan: ${nota}` : ''}
+
+Sila hubungi saya untuk maklumat lanjut.
+
+Terima kasih.`;
+    }
+    
+    // Fungsi untuk membuka WhatsApp
+    function openWhatsApp() {
+      const msg = encodeURIComponent(buildMessage());
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      window.open(url, '_blank');
+    }
+    
+    // Event listener untuk butang WhatsApp
+    whatsBtn.addEventListener('click', openWhatsApp);
+    
+    // Event listener untuk form submission
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Semak jika sedang dalam proses penghantaran
+      if (isSubmitting) return;
+      
+      // Semak jika baru sahaja menghantar
+      if (checkSubmissionLock()) {
+        duplicateWarning.style.display = 'block';
+        success.style.display = 'none';
+        error.style.display = 'none';
+        
+        // Kira masa yang tinggal
+        const lockData = JSON.parse(localStorage.getItem('formSubmissionLock'));
+        const elapsedTime = Date.now() - lockData.timestamp;
+        const remainingTime = Math.ceil((lockData.cooldown - elapsedTime) / 1000);
+        
+        startCountdown(remainingTime);
+        return;
+      }
+      
+      // Semak persetujuan PDPA
+      if (!document.getElementById('consent').checked) {
+        alert('Sila sahkan persetujuan PDPA.');
+        return;
+      }
+      
+      // Set status sedang menghantar
+      isSubmitting = true;
+      duplicateWarning.style.display = 'none';
+      success.style.display = 'none';
+      error.style.display = 'none';
+      loading.style.display = 'block';
+      submitBtn.disabled = true;
+      submitBtn.classList.add('btn-disabled');
+      
+      try {
+        // Sediakan data form
+        const formData = new FormData(form);
+        
+        // Tambah timestamp
+        formData.append('timestamp', new Date().toISOString());
+        
+        // Hantar ke Google Apps Script
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          body: formData
+        });
+        
+        // Semak respons
+        if (response.ok) {
+          const result = await response.json();
+          
+          if (result.result === "duplicate") {
+            throw new Error("Rekod dengan IC atau Email yang sama sudah wujud.");
+          } else if (result.result === "success") {
+            // Tunjukkan mesej kejayaan
+            success.style.display = 'block';
+            form.reset();
+            
+            // Set kunci penghantaran
+            setSubmissionLock();
+            startCountdown(SUBMISSION_COOLDOWN);
+          }
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      } catch (err) {
+        console.error('Form submission error:', err);
+        error.querySelector('div').innerHTML = `
+          <strong>Ralat semasa penghantaran.</strong><br>
+          ${err.message || 'Sila cuba semula atau hubungi kami melalui WhatsApp.'}
+        `;
+        error.style.display = 'block';
+        
+        // Reset status penghantaran
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('btn-disabled');
+      } finally {
+        // Sembunyikan loading
+        loading.style.display = 'none';
+      }
+    });
+    
+    // Semak status penghantaran ketika halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+      if (checkSubmissionLock()) {
+        const lockData = JSON.parse(localStorage.getItem('formSubmissionLock'));
+        const elapsedTime = Date.now() - lockData.timestamp;
+        const remainingTime = Math.ceil((lockData.cooldown - elapsedTime) / 1000);
+        
+        if (remainingTime > 0) {
+          duplicateWarning.style.display = 'block';
+          submitBtn.disabled = true;
+          submitBtn.classList.add('btn-disabled');
+          startCountdown(remainingTime);
+        }
+      }
+      
+      // Set tahun semasa untuk footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
