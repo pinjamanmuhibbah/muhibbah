@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <link rel="icon" type="image/png" href="logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berhenti Langgan | pinjamanmuhibbah.com</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e1ebf5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+             
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            text-align: center;
+            padding: 50px 30px;
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .success-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #00c9a7 0%, #92d362 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 40px;
+            color: white;
+            animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 20px rgba(0, 201, 167, 0.3);
+        }
+        
+        .error-icon {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff9a3d 100%);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .confirmation-box {
+            background: #f8faff;
+            border-radius: 16px;
+            padding: 30px 25px;
+            margin: 30px 0;
+            border: 1px solid #e6f0ff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .confirmation-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #00c9a7, #4facfe);
+        }
+        
+        .error-box::before {
+            background: linear-gradient(to bottom, #ff6b6b, #ff9a3d);
+        }
+        
+        .confirmation-text {
+            font-size: 20px;
+            color: #34495e;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .email-highlight {
+            display: inline-block;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f7ff 100%);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #1a73e8;
+            margin: 20px 0;
+            font-size: 20px;
+            word-break: break-all;
+            border: 1px solid #d1e3ff;
+            box-shadow: 0 3px 10px rgba(26, 115, 232, 0.1);
+            animation: highlight 1s ease;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #7f8c8d;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        
+        .brand {
+            color: #2c3e50;
+            font-weight: 700;
+            margin-top: 10px;
+            display: block;
+            font-size: 18px;
+        }
+        
+        .processing {
+            margin: 40px 0;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(79, 172, 254, 0.15);
+            border-top: 6px solid #4facfe;
+            border-radius: 50%;
+            margin: 0 auto;
+            animation: spin 1.2s linear infinite;
+        }
+        
+        .processing-text {
+            margin-top: 20px;
+            color: #4a6491;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .security-note {
+            background: #fef6f6;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #e74c3c;
+            border: 1px solid #fce4e4;
+        }
+        
+        .security-note i {
+            margin-right: 8px;
+            color: #e74c3c;
+        }
+        
+        .error-message {
+            display: block;
+            background: #fef6f6;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 25px;
+            color: #e74c3c;
+            border: 1px solid #fce4e4;
+        }
+        
+        .retry-button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #4facfe 0%, #00c9a7 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+        
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+        }
+        
+        .instructions {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            text-align: left;
+            font-size: 14px;
+            color: #2c3e50;
+            border: 1px solid #d1e3ff;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: #1a73e8;
+        }
+        
+        .instructions ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background: #e3f2fd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .script-code {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            text-align: left;
+            overflow: auto;
+            max-height: 300px;
+            margin-top: 20px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes highlight {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 20px;
+                border-radius: 16px;
+            }
+            
+            .success-icon {
+                width: 75px;
+                height: 75px;
+                font-size: 34px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .confirmation-box {
+                padding: 25px 20px;
+            }
+            
+            .confirmation-text {
+                font-size: 18px;
+            }
+            
+            .email-highlight {
+                font-size: 16px;
+                padding: 8px 18px;
+            }
+            
+            .processing-text {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="processing" id="processing">
+            <div class="spinner"></div>
+            <p class="processing-text">Memproses permintaan anda...</p>
+        </div>
+        
+        <div id="confirmation" style="display: none;">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <h1>Berhenti Langgan</h1>
+            
+            <div class="confirmation-box">
+                <p class="confirmation-text">Anda telah berhenti langgan</p>
+                <div class="email-highlight" id="userEmail">test@example.com</div>
+                <p class="confirmation-text">telah dikeluarkan dari senarai kami.</p>
+            </div>
+            
+            <div class="footer">
+                <p>Anda tidak akan menerima sebarang e-mel pemasaran daripada kami lagi.</p>
+                <p>Terima kasih kerana pernah menjadi sebahagian daripada komuniti kami.</p>
+                <span class="brand">pinjamanmuhibbah.com</span>
+            </div>
+            
+            <div class="security-note">
+                <i class="fas fa-lock"></i> Proses berhenti langgan ini adalah selamat dan dihormati.
+            </div>
+        </div>
+        
+        <div id="error" style="display: none;">
+            <div class="success-icon error-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            
+            <h1>Ralat Berlakunya</h1>
+            
+            <div class="confirmation-box error-box">
+                <p class="confirmation-text">Maaf, terdapat masalah teknikal</p>
+                <div class="email-highlight" id="errorEmail">test@example.com</div>
+                <p class="confirmation-text">tidak dapat diproses buat masa ini.</p>
+            </div>
+            
+            <div class="error-message" id="errorDetail">
+                Sila cuba lagi atau hubungi sokongan teknikal.
+            </div>
+            
+            <button class="retry-button" onclick="retryUnsubscribe()">Cuba Sekali Lagi</button>
+            
+            <div class="instructions">
+                <h3>Penyelesaian Masalah:</h3>
+                <ol>
+                    <li>Pastikan URL Google Apps Script anda betul</li>
+                    <li>Pastikan deployment Google Apps Script ditetapkan kepada "Anyone" access</li>
+                    <li>Semak konsol pembangun (F12) untuk mesej ralat terperinci</li>
+                    <li>Pastikan anda telah menyalin kod Google Apps Script dengan betul</li>
+                </ol>
+                
+                <h3>Google Apps Script Code:</h3>
+                <div class="script-code">
+function doPost(e) {<br>
+  try {<br>
+    // Get the active spreadsheet<br>
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();<br>
+    <br>
+    // Get the parameters from the request<br>
+    const email = e.parameter.email;<br>
+    const timestamp = e.parameter.timestamp || new Date();<br>
+    const action = e.parameter.action || 'unsubscribe';<br>
+    <br>
+    // Validate email<br>
+    if (!email || !isValidEmail(email)) {<br>
+      return ContentService<br>
+        .createTextOutput(JSON.stringify({ <br>
+          result: "error", <br>
+          message: "Invalid email address" <br>
+        }))<br>
+        .setMimeType(ContentService.MimeType.JSON)<br>
+        .setStatusCode(400);<br>
+    }<br>
+    <br>
+    // Append the data to the sheet<br>
+    sheet.appendRow([timestamp, email, action]);<br>
+    <br>
+    // Return success response<br>
+    return ContentService<br>
+      .createTextOutput(JSON.stringify({ <br>
+        result: "success", <br>
+        message: "Unsubscribed successfully" <br>
+      }))<br>
+      .setMimeType(ContentService.MimeType.JSON);<br>
+      <br>
+  } catch (error) {<br>
+    // Return error response<br>
+    return ContentService<br>
+      .createTextOutput(JSON.stringify({ <br>
+        result: "error", <br>
+        message: error.toString() <br>
+      }))<br>
+      .setMimeType(ContentService.MimeType.JSON)<br>
+      .setStatusCode(500);<br>
+  }<br>
+}<br>
+<br>
+function doGet(e) {<br>
+  // Handle GET requests if needed (for testing)<br>
+  return ContentService<br>
+    .createTextOutput(JSON.stringify({ <br>
+      result: "error", <br>
+      message: "Please use POST method" <br>
+    }))<br>
+    .setMimeType(ContentService.MimeType.JSON)<br>
+    .setStatusCode(405);<br>
+}<br>
+<br>
+function isValidEmail(email) {<br>
+  // Simple email validation<br>
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;<br>
+  return re.test(email);<br>
+}
+                </div>
+            </div>
+            
+            <div class="footer">
+                <span class="brand">pinjamanmuhibbah.com</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Google Apps Script URL - REPLACE WITH YOUR ACTUAL SCRIPT URL
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwLYPZiaKrZL8tVGoAKJfrYzMjDkWUpAsJ7DBLlBELKmeL6CLF1_TEewRYpNfEYm3P7/exec';
+        let userEmail = '';
+        
+        function retryUnsubscribe() {
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('processing').style.display = 'block';
+            processUnsubscribe();
+        }
+        
+        function processUnsubscribe() {
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            userEmail = urlParams.get('email') || '';
+            
+            // Set user email if available
+            if (userEmail) {
+                document.getElementById('userEmail').textContent = userEmail;
+                document.getElementById('errorEmail').textContent = userEmail;
+            } else {
+                // No email provided, show error
+                showError('Tiada alamat e-mel ditemui dalam URL');
+                return;
+            }
+            
+            // Send request to Google Sheets to unsubscribe
+            const formData = new FormData();
+            formData.append('email', userEmail);
+            formData.append('timestamp', new Date().toISOString());
+            formData.append('action', 'unsubscribe');
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json ? response.json() : response.text();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Check if the response indicates success
+                if (data && (data.result === 'success' || data.status === 'success')) {
+                    // Hide processing and show confirmation
+                    document.getElementById('processing').style.display = 'none';
+                    document.getElementById('confirmation').style.display = 'block';
+                } else {
+                    throw new Error(data && data.message ? data.message : 'Invalid response from server');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError(error.message || 'Ralat rangkaian berlaku. Sila pastikan anda mempunyai sambungan internet.');
+            });
+        }
+        
+        function showError(message) {
+            document.getElementById('processing').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            if (message) {
+                document.getElementById('errorDetail').textContent = message;
+                document.getElementById('errorDetail').style.display = 'block';
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            processUnsubscribe();
+        });
+    </script>
+</body>
+</html>
